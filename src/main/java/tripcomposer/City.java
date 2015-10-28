@@ -1,24 +1,10 @@
 package main.java.tripcomposer;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class City {
     private String cityName;
-
-    public City() {
-    }
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("City{");
-        sb.append("cityName='").append(cityName).append('\'');
-        sb.append('}');
-        return sb.toString();
-    }
 }
