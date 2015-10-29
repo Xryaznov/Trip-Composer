@@ -8,7 +8,7 @@ import lombok.Data;
 public class ServerResponse {
     private String type;
     private String time;
-    private String[] countries;
-    private String[] cities;
+    private Object countries;
+    private Object cities;
     private String echo;
 }

@@ -8,9 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -43,14 +41,12 @@ public class Application implements CommandLineRunner {
 
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 
-        messageConverters.add(new FormHttpMessageConverter());
-        messageConverters.add(new StringHttpMessageConverter());
         messageConverters.add(new MappingJackson2HttpMessageConverter());
 
         rest.setMessageConverters(messageConverters);
 
-        String result = rest.postForObject(url, request, String.class);
+        ServerResponse resp = rest.postForObject(url, request, ServerResponse.class);
 
-        System.out.println(result);
+        log.info(resp.toString());
     }
 }
