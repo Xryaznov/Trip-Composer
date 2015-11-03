@@ -1,5 +1,6 @@
-package main.java.tripcomposer;
+package main.java.tripcomposer.controller;
 
+import main.java.tripcomposer.model.ServerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -27,22 +28,18 @@ public class TripComposerController {
         RestTemplate rest = new RestTemplate();
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-        map.add("key", "$1$12309856$euBrWcjT767K2sP9MHcVS/");
+        map.add("key", "");
         map.add("echo", "all your base are belong to us");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
-
         messageConverters.add(new MappingJackson2HttpMessageConverter());
-
         rest.setMessageConverters(messageConverters);
 
         ServerResponse resp = rest.postForObject(url, request, ServerResponse.class);
-
         log.info(resp.toString());
 
         return resp.toString();

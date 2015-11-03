@@ -1,4 +1,4 @@
-package main.java.tripcomposer;
+package main.java.tripcomposer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

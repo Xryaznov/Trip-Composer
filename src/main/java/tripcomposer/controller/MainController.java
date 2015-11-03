@@ -1,4 +1,4 @@
-package main.java.tripcomposer;
+package main.java.tripcomposer.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +9,5 @@ public class MainController {
     public String index() {
         return "forward:index.html";
     }
-
-
 }
 
