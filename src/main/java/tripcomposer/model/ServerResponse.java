@@ -7,8 +7,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServerResponse {
     private String type;
-    private String time;
+    private Long time;
     private Object countries;
-    private Object cities;
     private String echo;
 }

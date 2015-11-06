@@ -2,19 +2,19 @@ package main.java.tripcomposer.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.hibernate.annotations.Generated;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Country {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "country_seq_gen")
+    @SequenceGenerator(name = "country_seq_gen", sequenceName = "country_id_seq")
     private Long id;
-    private String countryName;
     private String countryISOCode;
+    private String countryName;
+    private String time;
+    private String echo;
 }
