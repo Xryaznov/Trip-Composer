@@ -94,7 +94,11 @@ public class DataController {
     private void defineCountry(ServerResponse resp, Map<String, Object> map1, Country country) {
         country.setCountryName((String) map1.get("countryName"));
         country.setCountryISOCode((String) map1.get("countryISOCode"));
-        country.setTime(new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date(resp.getTime())));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        country.setTime(sdf.format(new Date(resp.getTime())));
         country.setEcho(resp.getEcho());
     }
 

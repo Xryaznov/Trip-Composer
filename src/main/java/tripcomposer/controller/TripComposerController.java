@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +38,18 @@ public class TripComposerController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
+        MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
+        headers.setContentType(mediaType);
+
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
         messageConverters.add(new MappingJackson2HttpMessageConverter());
         rest.setMessageConverters(messageConverters);
 
         ServerResponse resp = rest.postForObject(url, request, ServerResponse.class);
+        log.info(resp.toString());
 
         return resp;
     }
+
 }
