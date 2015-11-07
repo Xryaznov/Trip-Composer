@@ -28,8 +28,6 @@ public class TripComposerController {
 
     @RequestMapping("/getResponse")
     public ServerResponse getResponse(@RequestParam String echo) {
-        System.out.println(echo);
-
         RestTemplate rest = new RestTemplate();
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
@@ -45,7 +43,6 @@ public class TripComposerController {
         rest.setMessageConverters(messageConverters);
 
         ServerResponse resp = rest.postForObject(url, request, ServerResponse.class);
-        log.info(resp.toString());
 
         return resp;
     }

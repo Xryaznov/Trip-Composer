@@ -40,8 +40,6 @@ public class DataController {
 
                 for (Object o2 : cities) {
                     String cityName = (String) ((LinkedHashMap) o2).get("cityName");
-                    System.out.println(cityName);
-
                     session.flush();
 
                     City city = new City();
