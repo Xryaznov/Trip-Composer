@@ -44,8 +44,6 @@ public class TripComposerController {
         messageConverters.add(new MappingJackson2HttpMessageConverter());
         rest.setMessageConverters(messageConverters);
 
-
-
         ServerResponse resp = rest.postForObject(url, request, ServerResponse.class);
         log.info(resp.toString());
 
