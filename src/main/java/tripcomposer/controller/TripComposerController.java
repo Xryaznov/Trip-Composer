@@ -33,7 +33,7 @@ public class TripComposerController {
         RestTemplate rest = new RestTemplate();
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-        map.add("key", "$1$12309856$euBrWcjT767K2sP9MHcVS/");
+        map.add("key", "");
         map.add("echo", echo);
 
         HttpHeaders headers = new HttpHeaders();

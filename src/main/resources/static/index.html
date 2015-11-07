@@ -5,7 +5,11 @@
 
     <title>Trip Composer</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
@@ -26,16 +30,15 @@
     <p>Please try</p>
 
 
-    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <form method="post">
+            <div class="col-sm-3">
+                <form method="post" name="insertForm">
                     <div class="form-group">
                         <input class="form-control" id="echo" name="echo" placeholder="Echo" type="text"/>
                     </div>
                     <div class="form-group">
                         <div>
-                            <button class="btn btn-info " name="submit" type="submit" ng-click="sendRequest()">
+                            <button class="waves-effect waves-light btn" name="submit" type="submit" ng-click="sendRequest()">
                                 Send request
                             </button>
                         </div>
@@ -43,30 +46,34 @@
                 </form>
             </div>
         </div>
-    </div>
-    <br>
+
     <br>
 
-    <table class="table-condensed">
+    <h3>Cities</h3>
+
+    <div class="col s6">{{cities}}</div>
+
+    <h3>Country</h3>
+
+    <table ng-cloak class="table-hover table-condensed">
 
         <td>ID</td>
         <td>ISO</td>
         <td>NAME</td>
         <td>TIME</td>
         <td>ECHO</td>
-        <td>CITIES</td>
 
-        <tr ng-repeat="x in data">
+        <tr ng-repeat="x in data" ng-click="showCities(x.id)">
 
             <td>{{x.id}}</td>
             <td>{{x.countryISOCode}}</td>
             <td>{{x.countryName}}</td>
             <td>{{x.time}}</td>
             <td>{{x.echo}}</td>
-            <td><a href="">Show cities</a></td>
         </tr>
     </table>
 </div>
+
 <br>
 <br>
 <style>
@@ -74,6 +81,7 @@
         border: 1px solid black;
         border-style: dashed;
     }
+
 </style>
 </body>
 </html>

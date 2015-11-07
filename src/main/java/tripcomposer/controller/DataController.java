@@ -1,14 +1,11 @@
 package main.java.tripcomposer.controller;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import main.java.tripcomposer.model.City;
 import main.java.tripcomposer.model.Country;
 import main.java.tripcomposer.model.ServerResponse;
 import main.java.tripcomposer.utils.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +42,8 @@ public class DataController {
                     String cityName = (String) ((LinkedHashMap) o2).get("cityName");
                     System.out.println(cityName);
 
+                    session.flush();
+
                     City city = new City();
                     city.setCityName(cityName);
                     city.setCountryId(country.getId());
@@ -55,19 +54,42 @@ public class DataController {
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
+        } finally {
+            session.flush();
+            session.close();
         }
     }
 
     @RequestMapping("/show")
     public List showData() {
+
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
 
-        Criteria criteria = session.createCriteria(Country.class);
-        criteria.addOrder(Order.desc("id"));
-        criteria.setMaxResults(20);
+        try {
+            Criteria criteria = session.createCriteria(Country.class);
+            criteria.addOrder(Order.desc("id"));
+            criteria.setMaxResults(20);
+            return criteria.list();
+        } finally {
+            session.flush();
+            session.close();
+        }
 
-        return criteria.list();
+    }
+
+    @RequestMapping("/showCities")
+    public List showCitiesData(@RequestParam String id) {
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session session = sf.openSession();
+
+        try {
+            Query q = session.createSQLQuery("SELECT CITYNAME FROM CITY WHERE COUNTRYID = " + id + ";");
+            return q.list();
+        } finally {
+            session.flush();
+            session.close();
+        }
     }
 
     private void defineCountry(ServerResponse resp, Map<String, Object> map1, Country country) {

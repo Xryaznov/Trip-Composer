@@ -3,20 +3,39 @@ angular.module('TripComposer')
     {
         $scope.message = "Type in echo and send request";
 
-        data = [];
+        $scope.data = [];
+        $scope.cities = "Click on rows to display corresponding cities"
 
         $http.get('/show').success(function(res) {
             $scope.data = res;
         });
 
-        $scope.sendRequest = function(data) {
-            $http.get('/insert?echo=' + echo.value);
+        $scope.sendRequest = function() {
+            $http.get('/insert?echo=' + echo.value).success(function(res) {
 
-        $http.get('/show').success(function(res) {
-           $scope.data = res;
-        });
+                echo.value = "";
 
-             $route.reload();
+                $http.get('/show').success(function(res) {
+                    $scope.data = res;
+                });
+            });
         };
 
+        $scope.showCities = function(data) {
+            $http.get('/showCities?id=' + data).success(function(res) {
+                $scope.cities = "";
+
+                var i = 0;
+
+                angular.forEach(res, function(item){
+                    $scope.cities += item;
+                    i++;
+
+                    if (i != res.length) {
+                    $scope.cities += ", ";
+                    }
+
+                });
+            });
+        }
     });
