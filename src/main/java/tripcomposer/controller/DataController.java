@@ -53,6 +53,7 @@ public class DataController {
 
             session.getTransaction().commit();
         } catch (HibernateException e) {
+            e.printStackTrace();
             session.getTransaction().rollback();
         } finally {
             session.flush();
