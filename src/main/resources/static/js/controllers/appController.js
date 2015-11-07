@@ -22,7 +22,7 @@ angular.module('TripComposer')
         };
 
         $scope.showCities = function(data) {
-            $http.get('/showCities?id=' + data).success(function(res) {
+            $http.post('/showCities?id=' + data).success(function(res) {
                 $scope.cities = "";
 
                 var i = 0;
