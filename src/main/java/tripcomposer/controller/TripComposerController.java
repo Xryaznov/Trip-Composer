@@ -33,7 +33,7 @@ public class TripComposerController {
         RestTemplate rest = new RestTemplate();
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-        map.add("key", "");
+        map.add("key", System.getenv("API_KEY"));
         map.add("echo", echo);
 
         HttpHeaders headers = new HttpHeaders();
