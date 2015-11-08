@@ -95,8 +95,8 @@ public class DataController {
         country.setCountryName((String) map1.get("countryName"));
         country.setCountryISOCode((String) map1.get("countryISOCode"));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss'Z'");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss z");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
 
         country.setTime(sdf.format(new Date(resp.getTime())));
         country.setEcho(resp.getEcho());

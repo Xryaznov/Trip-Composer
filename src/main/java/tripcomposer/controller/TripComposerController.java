@@ -36,8 +36,6 @@ public class TripComposerController {
         map.add("echo", echo);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
         MediaType mediaType = new MediaType("application", "json", Charset.forName("UTF-8"));
         headers.setContentType(mediaType);
 
@@ -51,5 +49,4 @@ public class TripComposerController {
 
         return resp;
     }
-
 }
