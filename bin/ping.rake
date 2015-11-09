@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 require 'net/http'
 
 namespace :ping do
