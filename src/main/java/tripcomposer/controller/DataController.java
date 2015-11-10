@@ -64,6 +64,7 @@ public class DataController {
 
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
+        session.beginTransaction();
 
         try {
             Criteria criteria = session.createCriteria(Country.class);
@@ -71,6 +72,7 @@ public class DataController {
             criteria.setMaxResults(20);
             return criteria.list();
         } finally {
+            session.getTransaction().commit();
             session.flush();
             session.close();
         }
@@ -81,11 +83,12 @@ public class DataController {
     public List showCitiesData(@RequestParam String id) {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
-
+        session.beginTransaction();
         try {
             Query q = session.createSQLQuery("SELECT CITYNAME FROM CITY WHERE COUNTRYID = " + id + ";");
             return q.list();
         } finally {
+            session.getTransaction().commit();
             session.flush();
             session.close();
         }
