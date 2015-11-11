@@ -62,14 +62,13 @@ public class DataController {
     public List showData() {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
-        Transaction t = session.beginTransaction();
+
         try {
             Criteria criteria = session.createCriteria(Country.class);
             criteria.addOrder(Order.desc("id"));
             criteria.setMaxResults(20);
             return criteria.list();
         } finally {
-            t.commit();
             session.close();
         }
     }
