@@ -17,10 +17,10 @@ public class HibernateUtil {
 
     public static void initSessionFactory() {
         Configuration cfg = new Configuration();
-        cfg.configure("hibernate.cfg.xml");
-        cfg.setProperty("hibernate.connection.url", System.getenv("DB_URL"));
-        cfg.setProperty("hibernate.connection.username", System.getenv("DATABASE_USER"));
-        cfg.setProperty("hibernate.connection.password", System.getenv("DATABASE_PASS"));
+         cfg.configure("hibernate.cfg.xml");
+         cfg.setProperty("hibernate.connection.url", System.getenv("DB_URL"));
+         cfg.setProperty("hibernate.connection.username", System.getenv("DATABASE_USER"));
+         cfg.setProperty("hibernate.connection.password", System.getenv("DATABASE_PASS"));
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(cfg.getProperties()).build();
