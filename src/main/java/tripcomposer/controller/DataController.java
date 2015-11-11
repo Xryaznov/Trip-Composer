@@ -15,19 +15,19 @@ import java.util.*;
 
 @RestController
 public class DataController {
+    @SuppressWarnings("unchecked")
     @RequestMapping("/insert")
     public void insertData(@RequestParam String echo) {
 
         ServerResponse resp = new TripComposerController().getResponse(echo);
         List countries = (List) resp.getCountries();
 
-        SessionFactory sf;
+        SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = null;
 
         try {
-            sf = HibernateUtil.getSessionFactory();
             session = sf.openSession();
-            session.beginTransaction();
+            Transaction t = session.beginTransaction();
 
             for (Object o1 : countries) {
                 Map<String, Object> map1 = (Map) o1;
@@ -49,47 +49,41 @@ public class DataController {
                 }
             }
 
-            session.getTransaction().commit();
+            t.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
             session.getTransaction().rollback();
         } finally {
-            session.flush();
             session.close();
         }
     }
 
     @RequestMapping("/show")
     public List showData() {
-
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
-        session.beginTransaction();
-
+        Transaction t = session.beginTransaction();
         try {
             Criteria criteria = session.createCriteria(Country.class);
             criteria.addOrder(Order.desc("id"));
             criteria.setMaxResults(20);
             return criteria.list();
         } finally {
-            session.getTransaction().commit();
-            session.flush();
+            t.commit();
             session.close();
         }
-
     }
 
     @RequestMapping("/showCities")
     public List showCitiesData(@RequestParam String id) {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
-        session.beginTransaction();
+        Transaction t = session.beginTransaction();
         try {
             Query q = session.createSQLQuery("SELECT CITYNAME FROM CITY WHERE COUNTRYID = " + id + ";");
             return q.list();
         } finally {
-            session.getTransaction().commit();
-            session.flush();
+            t.commit();
             session.close();
         }
     }
