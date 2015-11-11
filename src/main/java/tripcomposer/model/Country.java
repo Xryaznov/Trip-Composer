@@ -17,4 +17,15 @@ public class Country {
     private String countryName;
     private String time;
     private String echo;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\"id\"").append(":").append("\"" + id + "\"").append(",");
+        sb.append("\"countryISOCode\"").append(":").append("\"" + countryISOCode + "\"").append(",");
+        sb.append("\"countryName\"").append(":").append("\"" + countryName + "\"").append(",");
+        sb.append("\"time\"").append(":").append("\"" + time + "\"").append(",");
+        sb.append("\"echo\"").append(":").append("\"" + echo + "\"").append("}");
+        return sb.toString();
+    }
 }
