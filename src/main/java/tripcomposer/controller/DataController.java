@@ -27,7 +27,8 @@ public class DataController {
 
         try {
             session = sf.openSession();
-            Transaction t = session.beginTransaction();
+            Transaction t = session.getTransaction();
+            t.begin();
 
             for (Object o1 : countries) {
                 Map<String, Object> map1 = (Map) o1;
@@ -62,7 +63,8 @@ public class DataController {
     public List showData() {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
-        Transaction t = session.beginTransaction();
+        Transaction t = session.getTransaction();
+        t.begin();
 
         try {
             Criteria criteria = session.createCriteria(Country.class);
@@ -72,7 +74,7 @@ public class DataController {
             return criteria.list();
 
         } finally {
-            t.rollback();
+            t.commit();
             session.close();
         }
     }
@@ -81,7 +83,8 @@ public class DataController {
     public List showCitiesData(@RequestParam String id) {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
-        Transaction t = session.beginTransaction();
+        Transaction t = session.getTransaction();
+        t.begin();
         try {
             Query q = session.createSQLQuery("SELECT CITYNAME FROM CITY WHERE COUNTRYID = " + id + ";");
             return q.list();
