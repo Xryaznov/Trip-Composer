@@ -64,14 +64,12 @@ public class DataController {
         SessionFactory sf = HibernateUtil.getSessionFactory();
         Session session = sf.openSession();
         Transaction t = session.getTransaction();
-        List<String> list = null;
 
         try {
             t.begin();
-            Query q = session.createSQLQuery("SELECT * FROM COUNTRY ORDER BY ID DESC;")
+            Query q = session.createSQLQuery("SELECT * FROM COUNTRY ORDER BY ID DESC LIMIT 20;")
                     .addEntity(Country.class);
-            list = q.list();
-            return list.subList(0, 20);
+            return q.list();
         } finally {
             t.commit();
             session.close();
