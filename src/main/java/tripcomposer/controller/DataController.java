@@ -5,11 +5,12 @@ import main.java.tripcomposer.model.Country;
 import main.java.tripcomposer.model.ServerResponse;
 import main.java.tripcomposer.utils.HibernateUtil;
 import org.hibernate.*;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
